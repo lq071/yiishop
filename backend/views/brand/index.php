@@ -22,15 +22,6 @@
     </tr>
     <?php endforeach; ?>
 </table>
-
-<!--<script type="text/javascript">
-    $('.table').on('click','.btn-danger',function(){
-        var tr = $(this).closest('tr');
-
-        //$.getJSON("<?/*=\yii\helpers\Url::to(['brand/delete'])*/?>",{id:tr.attr('data-id')},function(){
-           // tr.fadeOut();
-
-    });-->
 <?php
 /**
  * @var $this \yii\web\View
@@ -42,7 +33,7 @@ $str = <<<JS
            if(confirm('是否确定删除该记录？')){
             var id = tr.attr('data-id');
             $.getJSON("$url"+id ,function(){
-                tr.fadeOut(1);
+                tr.fadeOut();
             });
            }        
             });

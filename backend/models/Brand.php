@@ -16,7 +16,7 @@ use Yii;
  */
 class Brand extends \yii\db\ActiveRecord
 {
-    public $imgFile;
+    //public $imgFile;
     /**
      * @inheritdoc
      */
@@ -31,11 +31,11 @@ class Brand extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name','sort','status'], 'required'],
+            [['name','sort','status','logo'], 'required'],
             [['intro'], 'safe'],
             [['sort'], 'integer'],
             [['name'], 'string', 'max' => 50],
-            ['imgFile','file','extensions'=>['jpg','png','gif'],'maxSize'=>1024*1024,'skipOnEmpty'=>true],
+           // ['imgFile','file','extensions'=>['jpg','png','gif'],'maxSize'=>1024*1024,'skipOnEmpty'=>true],
         ];
     }
 
