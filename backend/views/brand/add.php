@@ -1,16 +1,15 @@
 <?php
-//$model -> status = 0; //默认选中
 $form = \yii\bootstrap\ActiveForm::begin();
 echo $form->field($model,'name')->textInput();
 echo $form->field($model,'logo')->hiddenInput();
-//=============================================
+//=====================  图片上传 ========================
 echo <<<HTML
 <div id="uploader-demo">
     <!--用来存放item-->
     <div id="fileList" class="uploader-list"></div>
     <div id="filePicker">选择图片</div>
 </div>
-<img id="img" width="150px" src="$model->logo"/>
+<img id="img" width="150px" src=" $model->logo"/>
 HTML;
 
 //==============================================
@@ -32,16 +31,12 @@ echo \yii\bootstrap\Html::submitButton('提交',['class'=>'btn btn-info']);
 $url = \yii\helpers\Url::to(['brand/upload']);
 $js = <<<JS
 var uploader = WebUploader.create({
-
     // 选完文件后，是否自动上传。
     auto: true,
-
     // swf文件路径
-    swf:'/js/Uploader.swf',
-
+    swf:'/js/Uploader.swf'
     // 文件接收服务端。
     server: '{$url}',
-
     // 选择文件的按钮。可选。
     // 内部根据当前运行是创建，可能是input元素，也可能是flash.
     pick: '#filePicker',
@@ -53,13 +48,11 @@ var uploader = WebUploader.create({
         mimeTypes: 'image/*'
     }
 });
-
 uploader.on( 'uploadSuccess', function( file,response ) {
     //$( '#'+file.id ).addClass('upload-state-done');
-        $('#img').attr('src',response.url);
-        $('#brand-logo').val(response.url)
+    $('#img').attr('src',response.url);
+    $('#brand-logo').val(response.url)
        // console.debug(response)
 });
 JS;
-
 $this->registerJs($js);

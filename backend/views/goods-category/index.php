@@ -2,7 +2,6 @@
 <a class="btn btn-primary" href="<?=\yii\helpers\Url::to(['goods-category/add'])?>">添加</a>
 <table class="table">
     <tr>
-        <th>id</th>
         <th>名称</th>
         <th>简介</th>
         <th>操作</th>
@@ -34,5 +33,4 @@ $str = <<<JS
            }        
             });
 JS;
-
 $this->registerJs($str);

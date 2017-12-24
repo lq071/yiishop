@@ -28,7 +28,6 @@ class ArticleController extends \yii\web\Controller
                 $model->save(false);
                 $model2->article_id = $model->id;
                 $model2 ->save(false);
-
                 return $this->redirect(['article/index']);
             } else {
                 var_dump($model->getErrors());

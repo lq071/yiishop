@@ -43,6 +43,7 @@ class BrandController extends Controller{
             $model->load($request->post());
             if ($model->validate()){
                 $model->save(false);
+                \Yii::$app->session->setFlash('success','更新成功');
                 return $this->redirect(['brand/index']);
             } else {
                 var_dump($model->getErrors());

@@ -33,7 +33,7 @@ class GoodsCategory extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'],'required'],
+            [['name','parent_id'],'required'],
             [['parent_id'], 'integer'],
             [['intro'], 'string'],
             [['name'], 'string', 'max' => 50],
@@ -63,9 +63,9 @@ class GoodsCategory extends \yii\db\ActiveRecord
             'tree' => [
                 'class' => NestedSetsBehavior::className(),
                 'treeAttribute' => 'tree',
-                'leftAttribute' => 'lft',
-                'rightAttribute' => 'rgt',
-                'depthAttribute' => 'depth',
+               // 'leftAttribute' => 'lft',
+               // 'rightAttribute' => 'rgt',
+               // 'depthAttribute' => 'depth',
             ],
         ];
     }
@@ -80,5 +80,12 @@ class GoodsCategory extends \yii\db\ActiveRecord
     public static function find()
     {
         return new GoodsCategoryQuery(get_called_class());
+    }
+    public static function getNodes(){
+
+        $node = self::find()->select(['id','name','parent_id'])->asArray()->all();
+        array_unshift($node,['id'=>0,'parent_id'=>0,'name'=>'顶级分类']);
+        //$nodes[]=['id'=>0,'parent_id'=>0,'name'=>'顶级分类'];
+        return json_encode($node);
     }
 }

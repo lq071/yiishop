@@ -5,7 +5,6 @@
         <th>名称</th>
         <th>简介</th>
         <th>状态</th>
-        <!--<th>排序</th>-->
         <th>操作</th>
     </tr>
     <?php foreach($rows as $row): ?>

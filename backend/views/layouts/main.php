@@ -49,6 +49,10 @@ AppAsset::register($this);
                 ['label' => '商品列表', 'url' =>['/goods/index']],
                 '<li class="divider"></li>',
                 ['label' => '添加商品', 'url' => ['/goods/add']],
+                '<li class="divider"></li>',
+                ['label' => '商品分类列表', 'url' => ['/goods-category/index']],
+                '<li class="divider"></li>',
+                ['label' => '添加商品分类', 'url' => ['/goods-category/add']],
             ]
         ],
         [

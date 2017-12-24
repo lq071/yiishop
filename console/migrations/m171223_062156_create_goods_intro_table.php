@@ -5,7 +5,7 @@ use yii\db\Migration;
 /**
  * Handles the creation of table `goods_intro`.
  */
-class m171221_103957_create_goods_intro_table extends Migration
+class m171223_062156_create_goods_intro_table extends Migration
 {
     /**
      * @inheritdoc
@@ -13,6 +13,7 @@ class m171221_103957_create_goods_intro_table extends Migration
     public function up()
     {
         $this->createTable('goods_intro', [
+            'id' => $this->primaryKey(),
             'goods_id' => $this->integer()->comment('商品id'),
             'content'=>$this->text()->comment('商品描述')
         ]);
