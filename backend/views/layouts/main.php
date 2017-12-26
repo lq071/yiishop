@@ -36,7 +36,7 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         [
-            'label'=>'品牌',
+            'label'=>'品牌管理',
             'items'=>[
                 ['label' => '品牌列表', 'url' =>['/brand/index']],
                '<li class="divider"></li>',
@@ -44,7 +44,7 @@ AppAsset::register($this);
             ]
         ],
         [
-            'label'=>'商品',
+            'label'=>'商品管理',
             'items'=>[
                 ['label' => '商品列表', 'url' =>['/goods/index']],
                 '<li class="divider"></li>',
@@ -56,19 +56,27 @@ AppAsset::register($this);
             ]
         ],
         [
-            'label'=>'文章',
+            'label'=>'文章管理',
             'items'=>[
                 ['label' => '文章列表', 'url' =>['/article/index']],
                 '<li class="divider"></li>',
                 ['label' => '添加文章', 'url' => ['/article/add']],
             ]
         ],
+        [
+            'label'=>'用户管理',
+            'items'=>[
+                ['label' => '用户列表', 'url' =>['/user/index']],
+                '<li class="divider"></li>',
+                ['label' => '添加用户', 'url' => ['/user/add']],
+            ]
+        ],
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+        $menuItems[] = ['label' => 'Login', 'url' => ['/login/login']];
     } else {
         $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
+            . Html::beginForm(['/login/logout'], 'post')
             . Html::submitButton(
                 'Logout (' . Yii::$app->user->identity->username . ')',
                 ['class' => 'btn btn-link logout']
@@ -82,7 +90,6 @@ AppAsset::register($this);
     ]);
     NavBar::end();
     ?>
-
     <div class="container">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],

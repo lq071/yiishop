@@ -1,7 +1,7 @@
 <?php
 $form = \yii\bootstrap\ActiveForm::begin();
 echo $form->field($model,'name')->textInput(['placeholder'=>'请输入分类名']);
-echo $form->field($model,'parent_id')->hiddenInput();
+echo $form->field($model,'parent_id')->textInput();
 //============================使用 ztree 插件展示商品分类==========================
 echo <<<HTML
 <div>

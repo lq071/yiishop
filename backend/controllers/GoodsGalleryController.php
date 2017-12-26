@@ -23,7 +23,10 @@ class GoodsGalleryController extends \yii\web\Controller
         $model->path = $request->post()['path'];
         $model->goods_id = $request->post()['goods_id'];
         $model->save();
+        //$ids = $model->id;
         $id = \Yii::$app->db->getLastInsertID();
+       // var_dump($id);
+        //var_dump($ids);exit;
         echo json_encode(['id'=>$id]);
     }
 

@@ -19,10 +19,11 @@ class GoodsCategoryController extends \yii\web\Controller
         if ($request->isPost) {
             $model->load($request->post());
             if ($model->validate()) {
+                //父分类
                 $parent = GoodsCategory::findOne(['id'=>$model->parent_id]);
-                if($model->parent_id){
+                if($model->parent_id){//如果查询到该分类有父分类 就追加到父分类下
                     $model->appendTo($parent);
-                }else{//
+                }else{//否则该分类就是根节点
                     $model->makeRoot();
                 }
 
@@ -38,6 +39,8 @@ class GoodsCategoryController extends \yii\web\Controller
     public function actionEdit($id){
         $request = \Yii::$app->request;
         $model = GoodsCategory::findOne(['id'=>$id]);
+        //修改前原来 的 parent_id
+       // $parent_id = $model->parent_id;
         if ($request->isPost) {
             $model->load($request->post());
             if ($model->validate()) {
@@ -45,7 +48,13 @@ class GoodsCategoryController extends \yii\web\Controller
                 if($model->parent_id){
                     $model->appendTo($parent);
                 }else{
-                    $model->makeRoot();
+                    //解决 根节点修改为 根节点
+                    if($model->getOldAttribute('parent_id')){
+                        $model->makeRoot();
+                    }else{
+                        $model->save();
+                    }
+
                 }
                 \Yii::$app->session->setFlash('success','更新成功');
                 return $this->redirect(['goods-category/index']);

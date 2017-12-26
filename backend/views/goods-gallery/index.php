@@ -51,16 +51,15 @@ var uploader = WebUploader.create({
 });
 uploader.on( 'uploadSuccess', function( file,response ) {
     //$( '#'+file.id ).addClass('upload-state-done');
-    $.post('{$url_add}',{'path':response.url,'goods_id':$goods_id},function(data){
-        console.debug(data)
+    $.post('{$url_add}',{'path':response.url,'goods_id':$goods_id},function(data){       
         var html = '';
         html += '<tr data-id="'+data.id+'">';
-        html += '<td><img id="img" src="'+response.url+'" width="100px"> </td>';
+        html += '<td><img id="img" src="'+response.url+'" width="200px"> </td>';
         html += '<td><a class="btn btn-danger" >删除</a></td>';
         html += '<tr>'; 
-         $(".table tbody").append(html);
-    });
-    $('#img').attr('src',response.url);*/
+         $(".table").append(html);
+    },'json');
+    //$('#img').attr('src',response.url);*/
     //$('#brand-logo').val(response.url)
        // console.debug(response)
 });

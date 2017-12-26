@@ -37,7 +37,21 @@ class GoodsCategory extends \yii\db\ActiveRecord
             [['parent_id'], 'integer'],
             [['intro'], 'string'],
             [['name'], 'string', 'max' => 50],
+            [['parent_id'],'checkPid'],
         ];
+    }
+
+    public function checkPid(){
+        if(!$this->parent_id==0){
+            if($this->parent_id==$this->id){
+                $this->addError('parent_id','不能修改到自己的分类下');
+            }
+            $parent = GoodsCategory::findOne(['id'=>$this->parent_id]);
+            if($parent->isChildOf($this)){
+                $this->addError('parent_id','不能修改为自己的子孙节点');
+            }
+        }
+
     }
 
     /**

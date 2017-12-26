@@ -25,8 +25,8 @@ class ArticleController extends \yii\web\Controller
             $model2->load($request->post());
             if ($model->validate()) {
                 $model->create_time = time();
-                $model->save(false);
                 $model2->article_id = $model->id;
+                $model->save(false);
                 $model2 ->save(false);
                 return $this->redirect(['article/index']);
             } else {

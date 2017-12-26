@@ -56,6 +56,9 @@
     <?php endforeach; ?>
     </tbody>
 </table>
+<?=\yii\widgets\LinkPager::widget([
+    'pagination'=>$pages
+])?>
 <?php
 /**
  * @var $this \yii\web\View
@@ -101,7 +104,6 @@ $("#search").click(function(){
     });
     
 });
-
 //删除
        $('.table').on('click','.btn-danger',function(data){
            var tr = $(this).closest('tr');

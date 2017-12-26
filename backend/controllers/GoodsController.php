@@ -9,6 +9,7 @@ use backend\models\GoodsGallery;
 use backend\models\GoodsIntro;
 use Qiniu\Auth;
 use Qiniu\Storage\UploadManager;
+use yii\data\Pagination;
 use yii\helpers\Json;
 use yii\web\UploadedFile;
 
@@ -18,17 +19,26 @@ class GoodsController extends \yii\web\Controller
     //列表
     public function actionIndex()
     {
-        $rows = Goods::find()->where(['status'=>1])->all();
-        return $this->render('index',['rows'=>$rows]);
+        $query = Goods::find();
+        $pages = new Pagination([
+            'totalCount'=>$query->count(),
+            'defaultPageSize'=>2
+        ]);
+        $rows = $query->where(['status'=>1])->limit($pages->limit)->offset($pages->offset)->all();
+        return $this->render('index',['rows'=>$rows,'pages'=>$pages]);
     }
-
     //ajax index
     public function actionSearch()
     {
         $request = \Yii::$app->request;
         $param = $request->post();
+        $query = Goods::find();
+        $pages = new Pagination([
+            'totalCount'=>$query->count(),
+            'defaultPageSize'=>2
+        ]);
         //var_dump($param); exit;
-        $rows = Goods::find()->orderBy(['goods.sort'=>SORT_DESC])
+        $rows = $query->orderBy(['goods.sort'=>SORT_DESC])
             ->where(['status'=>1])
             ->andwhere([
                 'and',
@@ -41,6 +51,7 @@ class GoodsController extends \yii\web\Controller
             ->andFilterWhere(['like','name',$param['name']])
             ->andFilterWhere(['like','market_price',$param['market_price']])
             ->andFilterWhere(['like','shop_price',$param['shop_price']])*/
+            ->limit($pages->limit)->offset($pages->offset)
             ->all();
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return [

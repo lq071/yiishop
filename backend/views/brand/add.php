@@ -26,15 +26,13 @@ echo \yii\bootstrap\Html::submitButton('提交',['class'=>'btn btn-info']);
  $this->registerJsFile('@web/webuploader/webuploader.js',[    'depends'=>\yii\web\JqueryAsset::className()
  ]);
 
-
-
 $url = \yii\helpers\Url::to(['brand/upload']);
 $js = <<<JS
 var uploader = WebUploader.create({
     // 选完文件后，是否自动上传。
     auto: true,
     // swf文件路径
-    swf:'/js/Uploader.swf'
+    swf:'/js/Uploader.swf',
     // 文件接收服务端。
     server: '{$url}',
     // 选择文件的按钮。可选。
