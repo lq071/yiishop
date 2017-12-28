@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\PasswordForm;
 use backend\models\User;
 
 class UserController extends \yii\web\Controller
@@ -51,9 +52,16 @@ class UserController extends \yii\web\Controller
         }
         return $this->render('add', ['model' => $model]);
     }
+    //修改密码
+    public function actionEditPwd(){
+        $model = new PasswordForm();
+
+        return $this->render('password',['model'=>$model]);
+    }
     //删除
     public function actionDelete($id){
         $model = User::findOne(['id'=>$id]);
 
     }
+
 }

@@ -25,10 +25,7 @@ class User extends ActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
-    const SCENARIO_ADD = 'add';
-    const SCENARIO_EDIT = 'edit';
     public $password_hash2;
-    public $new_password;
     /**
      * @inheritdoc
      */
@@ -73,7 +70,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['username','old_password','password_hash','password_hash2','status','email','status'],'required'],
+            [['username','password_hash','password_hash2','status','email','status'],'required'],
             [['email','password_reset_token','username'],'unique'],
             ['email','email'],
             [['password_hash2'], 'compare','compareAttribute'=>'password_hash'],

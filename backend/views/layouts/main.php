@@ -64,6 +64,16 @@ AppAsset::register($this);
             ]
         ],
         [
+            'label'=>'RBAC',
+            'items'=>[
+                ['label' => '权限列表', 'url' =>['/rbac/index']],
+                ['label' => '添加权限', 'url' => ['/rbac/add-p']],
+                '<li class="divider"></li>',
+                ['label' => '角色列表', 'url' => ['/rbac/add-role']],
+                ['label' => '添加角色', 'url' => ['/rbac/add-role']],
+            ]
+        ],
+        [
             'label'=>'用户管理',
             'items'=>[
                 ['label' => '用户列表', 'url' =>['/user/index']],
