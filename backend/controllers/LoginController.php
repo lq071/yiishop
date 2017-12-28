@@ -18,7 +18,7 @@ class LoginController extends Controller{
             $ip = $request->getUserIP();
             if($model->validate()){
                 if( $model->checkLogin($ip)){
-                   // var_dump(\Yii::$app->user->identity);exit; // 登录信息
+                   //var_dump(\Yii::$app->user->identity);exit; // 登录信息
                     \Yii::$app->session->setFlash('success','登录成功');
                     return $this->redirect(['goods/index']);
                 }else{

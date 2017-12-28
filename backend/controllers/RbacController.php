@@ -111,15 +111,13 @@ class RbacController extends Controller{
                 return $this->redirect(['rbac/index-role']);
             }
         }
-
         //回显
         $model->name = $role->name;
         $model->description = $role->description;
-
         $model->permission =[];
         $permission = $authManager->getPermissionsByRole($name);
         foreach ($permission as $v){
-           $model->permission[] = $v->name;
+            $model->permission[] = $v->name;
         }
         return $this->render('add-role',['model'=>$model,'permission'=>$permissions]);
     }

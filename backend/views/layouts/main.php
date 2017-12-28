@@ -81,6 +81,13 @@ AppAsset::register($this);
                 ['label' => '添加用户', 'url' => ['/user/add']],
             ]
         ],
+        [
+            'label'=>'个人中心',
+            'items'=>[
+                ['label' => '修改密码', 'url' =>['/user/edit-pwd']],
+                '<li class="divider"></li>',
+            ]
+        ],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/login/login']];
