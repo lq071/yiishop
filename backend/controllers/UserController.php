@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\filters\RbacFilter;
 use backend\models\PasswordForm;
 use backend\models\User;
 
@@ -17,11 +18,14 @@ class UserController extends \yii\web\Controller
     public function actionAdd(){
         $request = \Yii::$app->request;
         $model = new User();
+        $model->scenario = User::SCENARIO_ADD;
         if($request->isPost){
             $model->load($request->post());
             if($model->validate()){
                 //密码处理
+               // var_dump($model->password_hash);exit;
                 $model->password_hash = \Yii::$app->security->generatePasswordHash($model->password_hash);
+                //var_dump($model->password_hash);exit;
                 $model->auth_key = \Yii::$app->security->generateRandomString();
                 $model->save(false);
                 //用户和角色的关系
@@ -53,7 +57,8 @@ class UserController extends \yii\web\Controller
             $model->load($request->post());
             if($model->validate()){
                 //密码处理
-                $model->password_hash = \Yii::$app->security->generatePasswordHash($model->password_hash);
+               $model->password_hash = \Yii::$app->security->generatePasswordHash($model->password_hash);
+
                 $model->save();
                 $authManager->revokeAll($id);
                 if(is_array($model->role)){
@@ -98,8 +103,17 @@ class UserController extends \yii\web\Controller
     }
     //删除
     public function actionDelete($id){
-       // $model = User::findOne(['id'=>$id]);
-
+        $model = User::findOne(['id'=>$id]);
+        $model->delete();
+        echo json_encode(1);
     }
-
+    //权限
+ /*   public function behaviors()
+    {
+        return [
+            'rbac'=>[
+                'class'=>RbacFilter::className()
+            ],
+        ];
+    }*/
 }

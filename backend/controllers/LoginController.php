@@ -1,6 +1,7 @@
 <?php
 namespace backend\controllers;
 
+use backend\filters\RbacFilter;
 use backend\models\LoginForm;
 use yii\captcha\CaptchaAction;
 use yii\web\Controller;
@@ -20,7 +21,7 @@ class LoginController extends Controller{
                 if( $model->checkLogin($ip)){
                    //var_dump(\Yii::$app->user->identity);exit; // 登录信息
                     \Yii::$app->session->setFlash('success','登录成功');
-                    return $this->redirect(['goods/index']);
+                    return $this->redirect(['article/index']);
                 }else{
                     var_dump($model->getErrors());
                 }
@@ -46,6 +47,15 @@ class LoginController extends Controller{
 
         ];
     }
-
+    //权限
+/*    public function behaviors()
+    {
+        return [
+            'rbac'=>[
+                'class'=>RbacFilter::className(),
+                'except'=>['login','upload']
+            ],
+        ];
+    }*/
 
 }

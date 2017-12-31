@@ -48,8 +48,10 @@ class LoginForm extends Model
             $this->addError('username','用户名不存在');
             return false;
         }else{
-
-            if(!Yii::$app->security->validatePassword($this->password_hash,$userInfo->password_hash)            ){
+            if(!Yii::$app->security->validatePassword($this->password_hash,$userInfo->password_hash)                  ){
+                var_dump($this->password_hash);
+                var_dump($userInfo->password_hash);
+                var_dump(Yii::$app->security->validatePassword($this->password_hash,$userInfo->password_hash));exit;
                 $this->addError('password_hash','密码不正确');
                 return false;
             }else{

@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\filters\RbacFilter;
 use backend\models\Article;
 use backend\models\ArticleCategory;
 use backend\models\ArticleDetail;
@@ -11,7 +12,9 @@ class ArticleController extends \yii\web\Controller
     //列表
     public function actionIndex()
     {
+       // var_dump(\Yii::$app->user->identity);exit;
         $rows = Article::find()->where(['status'=>[0,1]])->all();
+        //var_dump($rows); exit;
         return $this->render('index',['rows'=>$rows]);
     }
     //添加
@@ -78,4 +81,13 @@ class ArticleController extends \yii\web\Controller
             ]
         ];
     }
+    //权限
+/*    public function behaviors()
+    {
+        return [
+            'rbac'=>[
+                'class'=>RbacFilter::className()
+            ],
+        ];
+    }*/
 }

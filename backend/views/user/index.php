@@ -15,7 +15,7 @@
     <tr data-id="<?=$row->id?>">
         <td><?=$row->id?></td>
         <td><?=$row->username?></td>
-        <td><?=$row->status?></td>
+        <td><?=$row->status ==0 ? '禁用':'启用'?></td>
         <td><?=$row->email?></td>
         <td><?=date('Y-m-d',$row->created_at)?></td>
         <td><?=date('Y-m-d',$row->updated_at)?></td>

@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\filters\RbacFilter;
 use backend\models\GoodsCategory;
 
 class GoodsCategoryController extends \yii\web\Controller
@@ -75,4 +76,13 @@ class GoodsCategoryController extends \yii\web\Controller
         }
         return $this->redirect(['goods-category/index']);
     }
+    //权限
+/*    public function behaviors()
+    {
+        return [
+            'rbac'=>[
+                'class'=>RbacFilter::className()
+            ],
+        ];
+    }*/
 }

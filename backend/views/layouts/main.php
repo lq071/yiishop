@@ -34,8 +34,10 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    $menuItems = [
-        [
+
+    $menuItems=[];
+/*    $menuItems = [
+     [
             'label'=>'品牌管理',
             'items'=>[
                 ['label' => '品牌列表', 'url' =>['/brand/index']],
@@ -43,7 +45,7 @@ AppAsset::register($this);
                 ['label' => '添加品牌', 'url' => ['/brand/add']],
             ]
         ],
-        [
+     [
             'label'=>'商品管理',
             'items'=>[
                 ['label' => '商品列表', 'url' =>['/goods/index']],
@@ -69,7 +71,7 @@ AppAsset::register($this);
                 ['label' => '权限列表', 'url' =>['/rbac/index']],
                 ['label' => '添加权限', 'url' => ['/rbac/add-p']],
                 '<li class="divider"></li>',
-                ['label' => '角色列表', 'url' => ['/rbac/add-role']],
+                ['label' => '角色列表', 'url' => ['/rbac/index-role']],
                 ['label' => '添加角色', 'url' => ['/rbac/add-role']],
             ]
         ],
@@ -88,10 +90,11 @@ AppAsset::register($this);
                 '<li class="divider"></li>',
             ]
         ],
-    ];
+    ];*/
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/login/login']];
     } else {
+        $menuItems=Yii::$app->user->identity->menus;
         $menuItems[] = '<li>'
             . Html::beginForm(['/login/logout'], 'post')
             . Html::submitButton(

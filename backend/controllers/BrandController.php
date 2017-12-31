@@ -2,6 +2,7 @@
 namespace backend\controllers;
 
 
+use backend\filters\RbacFilter;
 use backend\models\Brand;
 use yii\helpers\Json;
 use yii\web\Controller;
@@ -92,7 +93,15 @@ class BrandController extends Controller{
             }
         }
     }
-
+    //权限
+/*    public function behaviors()
+    {
+        return [
+            'rbac'=>[
+                'class'=>RbacFilter::className()
+            ],
+        ];
+    }*/
 
 
 

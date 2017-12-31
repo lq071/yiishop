@@ -1,6 +1,7 @@
 <?php
 namespace backend\controllers;
 
+use backend\filters\RbacFilter;
 use backend\models\PermissionForm;
 use backend\models\RoleForm;
 use yii\rbac\Permission;
@@ -99,12 +100,16 @@ class RbacController extends Controller{
         if($request->isPost){
             $model->load($request->post());
             if($model->validate()){
-                 $role->name = $model->name;
-                 $role->description = $model->description;
-                 //处理角色和权限的关系
+                $role->name = $model->name;
+                $role->description = $model->description;
+                $authManager->update($name,$role);
+                //处理角色和权限的关系
+                //取消关联
                 $authManager->removeChildren($role);
+                //给角色赋予权限
                 foreach($model->permission as $v){
                     $permission = $authManager->getPermission($v);
+                   // var_dump($permission);exit;
                     $authManager->addChild($role,$permission);
                 }
                 \Yii::$app->session->setFlash('success','更新成功');
@@ -131,4 +136,13 @@ class RbacController extends Controller{
         $authManager->remove($role);
         echo json_encode(1);
     }
+    //权限
+/*    public function behaviors()
+    {
+        return [
+            'rbac'=>[
+                'class'=>RbacFilter::className()
+            ],
+        ];
+    }*/
 }

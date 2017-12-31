@@ -33,9 +33,15 @@ class Menu extends \yii\db\ActiveRecord
         return [
             [['label', 'parent_id'], 'required'],
             [['label'], 'string', 'max' => 20],
-            [['url'], 'string', 'max' => 60],
+            //['url','checkUrl'],
         ];
     }
+/*    public function checkUrl(){
+        //var_dump(11);exit;
+        if($this->parent_id !=0 ){
+            $this->addError('url','请选择路由');
+        }
+    }*/
 
     /**
      * @inheritdoc

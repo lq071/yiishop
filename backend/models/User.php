@@ -25,6 +25,7 @@ class User extends ActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
+    const SCENARIO_ADD = 'add';
    // public $password_hash2;
     public $role=[];
     /**
@@ -71,9 +72,11 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['username','password_hash','status','email','status','role'],'required'],
+            [['username','status','email','status'],'required'],
             [['email','password_reset_token','username'],'unique'],
             ['email','email'],
+            ['password_hash','required','on'=>self::SCENARIO_ADD],
+            ['role','safe'],
            // [['password_hash2'], 'compare','compareAttribute'=>'password_hash'],
             //['status', 'default', 'value' => self::STATUS_ACTIVE],
             //['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
@@ -91,7 +94,24 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
-
+    public function getMenus(){
+        $menuItems = [];
+        $rows = \backend\models\Menu::find()->where(['parent_id'=>0])->all();
+           foreach ($rows as $row){
+               $options = \backend\models\Menu::find()->where(['parent_id'=>$row->id])->all();
+               $items = [];
+               foreach ($options as $v){
+                  // if(Yii::$app->user->can($v->url)){
+                       $items []= ['label' =>$v->label, 'url' =>[$v->url]];
+                       // '<li class="divider"></li>',];
+                  // }
+              }
+              if($items){
+                  $menuItems[] = ['label'=>$row->label, 'items'=>$items];
+              }
+           }
+           return $menuItems;
+    }
     /**
      * @inheritdoc
      */

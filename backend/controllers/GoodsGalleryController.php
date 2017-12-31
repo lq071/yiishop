@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\filters\RbacFilter;
 use backend\models\GoodsCategory;
 use backend\models\GoodsGallery;
 use yii\web\NotFoundHttpException;
@@ -36,4 +37,13 @@ class GoodsGalleryController extends \yii\web\Controller
         $model->delete();
         echo json_encode(1);
     }
+    //权限
+ /*   public function behaviors()
+    {
+        return [
+            'rbac'=>[
+                'class'=>RbacFilter::className()
+            ],
+        ];
+    }*/
 }
