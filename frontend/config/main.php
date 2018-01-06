@@ -11,12 +11,13 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
+    'layout' => false,
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
         ],
         'user' => [
-            'identityClass' => 'common\models\User',
+            'identityClass' => 'frontend\models\Member',
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
         ],
@@ -36,14 +37,21 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
+
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+            'suffix'=>'.html',
             'rules' => [
             ],
         ],
-        */
+        'sms'=>[
+            'class'=>frontend\components\SendSms::className(),
+            'ak'=>'LTAIqveIXVQSErFT',
+            'sk'=>'ZTShaJFakuT7hfZipsBVMct1S6obHO',
+            'sign'=>'橙子的店',
+            'template'=>'SMS_120130255',
+        ],
     ],
     'params' => $params,
 ];

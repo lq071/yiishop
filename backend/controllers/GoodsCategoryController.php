@@ -27,6 +27,10 @@ class GoodsCategoryController extends \yii\web\Controller
                 }else{//否则该分类就是根节点
                     $model->makeRoot();
                 }
+                // redis;
+                $redis = new \Redis();
+                $redis->open('127.0.0.1');
+                $redis->del('category_view');
 
                 \Yii::$app->session->setFlash('success','添加成功');
                 return $this->redirect(['goods-category/index']);
@@ -55,8 +59,12 @@ class GoodsCategoryController extends \yii\web\Controller
                     }else{
                         $model->save();
                     }
-
                 }
+                // redis;
+                $redis = new \Redis();
+                $redis->open('127.0.0.1');
+                $redis->del('category_view');
+
                 \Yii::$app->session->setFlash('success','更新成功');
                 return $this->redirect(['goods-category/index']);
             } else {
