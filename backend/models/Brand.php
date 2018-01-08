@@ -22,7 +22,7 @@ class Brand extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'Brand';
+        return 'brand';
     }
 
     /**
