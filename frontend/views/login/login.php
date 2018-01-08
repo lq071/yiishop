@@ -11,7 +11,7 @@
 </head>
 <body>
 	<!-- 顶部导航 start -->
-	<div class="topnav">
+<!--	<div class="topnav">
 		<div class="topnav_bd w990 bc">
 			<div class="topnav_left">
 				
@@ -27,7 +27,13 @@
 				</ul>
 			</div>
 		</div>
-	</div>
+	</div>-->
+<?php
+/**
+ * @var $this \yii\web\View
+ */
+echo $this->render('@webroot/public/nav');
+?>
 	<!-- 顶部导航 end -->
 	
 	<div style="clear:both;"></div>
@@ -35,7 +41,7 @@
 	<!-- 页面头部 start -->
 	<div class="header w990 bc mt15">
 		<div class="logo w990">
-			<h2 class="fl"><a href="index.html"><img src="/images/logo.png" alt="京西商城"></a></h2>
+			<h2 class="fl"><a href="index.html"><img src="/images/logo.png" alt="京西商城" width="259" height="50"></a></h2>
 		</div>
 	</div>
 	<!-- 页面头部 end -->

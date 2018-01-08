@@ -131,23 +131,32 @@ class OrderController extends Controller{
             return $this->render('add');
         }
     }
+//订单详情
+    public function actionDetail()
+    {
+        if (\Yii::$app->user->isGuest) {
+            return $this->redirect(['login/login']);
+        } else {
 
-    public function actionDetail(){
-        $member_id = \Yii::$app->user->id;
-        $orders = Order::find()->where(['member_id'=>$member_id])->all();
-        foreach($orders as $order){
-            $orderGoods = OrderGoods::find()->where(['order_id'=>$order->id])->all();
-            //商品图片 只保存3 张
-            $i = 0;
-            foreach ($orderGoods as $detail){
-                $i ++;
-                if($i >3){
-                    break;
+
+            $member_id = \Yii::$app->user->id;
+            $orders = Order::find()->where(['member_id' => $member_id])->all();
+            foreach ($orders as $order) {
+                $orderGoods = OrderGoods::find()->where(['order_id' => $order->id])->all();
+                //商品图片 只保存3 张
+                $i = 0;
+                foreach ($orderGoods as $detail) {
+                    $i++;
+                    if ($i > 3) {
+                        break;
+                    }
+                    //在 order 模型中 添加 logos 字段 保存logo (成员变量)
+                    $order->logos[] = $detail->logo;
                 }
-                //在 order 模型中 添加 logos 字段 保存logo (成员变量)
-                $order->logos[] = $detail->logo;
             }
+            return $this->render('order', ['orders' => $orders, 'html' => $this->getGoodsCategory()]);
         }
-        return $this->render('order',['orders'=>$orders,'html'=>$this->getGoodsCategory()]);
     }
+
+
 }

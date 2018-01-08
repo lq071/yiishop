@@ -186,7 +186,7 @@ echo $this->render('@webroot/public/nav');
 								<ul>
 									<li>
 										<span><?=$count?> 件商品，总商品金额：</span>
-										<em class="money">￥<?=$money?></em>
+                                        <em  class="money">￥<span id="t1"><?=number_format($money,2)?></span></em>
 									</li>
 									<li>
 										<span>返现：</span>
@@ -194,11 +194,11 @@ echo $this->render('@webroot/public/nav');
 									</li>
 									<li>
 										<span>运费：</span>
-										<em class="freight">￥25元</em>
+										<em class="freight">￥<span id="t2"><?=number_format(\frontend\models\Order::$delivery[1][1],2)?></span></em>
 									</li>
 									<li>
 										<span>应付总额：</span>
-										<em class="amount">￥5076.00</em>
+										<em id="t3" class="amount">￥5076.00</em>
 									</li>
 								</ul>
 							</td>
@@ -212,7 +212,7 @@ echo $this->render('@webroot/public/nav');
 
 		<div class="fillin_ft">
 			<button type="submit"><span>提交订单</span></button>
-			<p>应付总额：<strong>￥5076.00元</strong></p>
+			<p>应付总额：<strong id="t4">￥5076.00元</strong></p>
 		</div>
     </form>
 	</div>
@@ -246,13 +246,34 @@ echo $this->render('@webroot/public/nav');
 	</div>
 	<!-- 底部版权 end -->
     <script type="text/javascript">
+        $(function(){//页面加载完成后
+            //获取商品总金额 和 运费
+            var t1 =delcommafy($('#t1').text()),t2 = delcommafy($('#t2').text());
+            //赋值总金额
+            $('#t3').text("￥"+(parseFloat(t1) + parseFloat(t2)).toFixed(2));
+            $('#t4').text($('#t3').text());
 
+            $("input[name='delivery_id']").click(function(){
+                //运费
+                var freight = $(this).closest('tr').find("td:eq(1)").text();
+                //运费赋值
+                $('#t2').text(parseFloat(freight).toFixed(2));
+                //获取商品总金额 和 运费
+                var t1 =delcommafy($('#t1').text()),t2 = delcommafy($('#t2').text());
+                //赋值总金额
+                $('#t3').text("￥"+(parseFloat(t1) + parseFloat(t2)).toFixed(2));
+                $('#t4').text($('#t3').text());
+            });
+            //将 千分符 格式 转为 字符串
+            function delcommafy(num){
+                if((num+"").trim()==""){
+                    return 0;
+                }
+                num=num.replace(/,/gi,'');
+                return num;
+            }
+        });
 
-      $("input[name='delivery_id']").click(function(){
-          //运费
-            var freight = $(this).closest('tr').find("td:eq(1)").text();
-            $('.freight').text(freight);
-        })
     </script>
 </body>
 </html>
