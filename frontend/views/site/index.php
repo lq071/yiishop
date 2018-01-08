@@ -217,12 +217,12 @@ echo $this->render('@webroot/public/nav');
 			<div class="area">
 				<div class="slide_items">
 					<ul>
-						<li><a href=""><img src="/images/index_slide1.jpg" alt="" /></a></li>
-						<li><a href=""><img src="/images/index_slide2.jpg" alt="" /></a></li>
-						<li><a href=""><img src="/images/index_slide3.jpg" alt="" /></a></li>
-						<li><a href=""><img src="/images/index_slide4.jpg" alt="" /></a></li>
-						<li><a href=""><img src="/images/index_slide5.jpg" alt="" /></a></li>
-						<li><a href=""><img src="/images/index_slide6.jpg" alt="" /></a></li>
+						<li><a href=""><img src="/images/index_slide1.jpg" alt="" width="670px"/></a></li>
+						<li><a href=""><img src="/images/index_slide2.jpg" alt="" width="670px"/></a></li>
+						<li><a href=""><img src="/images/index_slide3.jpg" alt="" width="670px"/></a></li>
+						<li><a href=""><img src="/images/index_slide4.jpg" alt="" width="670px"/></a></li>
+						<li><a href=""><img src="/images/index_slide5.jpg" alt="" width="670px"/></a></li>
+						<li><a href=""><img src="/images/index_slide6.jpg" alt="" width="670px"/></a></li>
 					</ul>
 				</div>
 				<div class="slide_controls">
@@ -398,21 +398,21 @@ echo $this->render('@webroot/public/nav');
 						<li>
 							<dl>
 								<dt><a href=""><img src="/images/hot1.jpg" alt="" /></a></dt>
-								<dd><a href="">索尼双核五英寸四核手机！</a></dd>
+								<dd><a href="">高档玫瑰绣球桔梗生日花束！</a></dd>
 								<dd><span>售价：</span><strong> ￥1386.00</strong></dd>
 							</dl>
 						</li>
 						<li>
 							<dl>
 								<dt><a href=""><img src="/images/hot2.jpg" alt="" /></a></dt>
-								<dd><a href="">华为通话平板仅需969元！</a></dd>
-								<dd><span>售价：</span><strong> ￥969.00</strong></dd>
+								<dd><a href="">精品月季仅需69元！</a></dd>
+								<dd><span>售价：</span><strong> ￥69.00</strong></dd>
 							</dl>
 						</li>
 						<li>
 							<dl>
 								<dt><a href=""><img src="/images/hot3.jpg" alt="" /></a></dt>
-								<dd><a href="">卡姿兰明星单品7件彩妆套装</a></dd>
+								<dd><a href="">温馨家园精装</a></dd>
 								<dd><span>售价：</span><strong> ￥169.00</strong></dd>
 							</dl>
 						</li>

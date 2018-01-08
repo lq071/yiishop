@@ -168,11 +168,10 @@
 
             var tel = $('#tel').val();
             $.get('<?= \yii\helpers\Url::to(['site/sms'])?>',{"tel":tel},function (data) {
-                console.log(data);
                 if(data == 'true'){
-                    console.debug('发送成功')
-                }else{
                     alert('短信发送失败')
+                }else{
+                    alert(data)
                 }
             })
 		}

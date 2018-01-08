@@ -194,7 +194,8 @@ class GoodsController extends \yii\web\Controller
     {
         return [
             'rbac'=>[
-                'class'=>RbacFilter::className()
+                'class'=>RbacFilter::className(),
+                'except'=>['upload','ueditor']
             ],
         ];
     }

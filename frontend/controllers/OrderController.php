@@ -96,7 +96,7 @@ class OrderController extends Controller{
                     $order->save(false);
                 }
                 //订单 商品 详情表
-                foreach ($carts as $cart) {
+                foreach ($carts as $cart) { //遍历购物车
                     $goods = Goods::findOne(['id' => $cart->goods_id]);
                     //判断 剩余库存
                     if ($goods->stock >= $cart->amount) {

@@ -86,13 +86,11 @@ class SiteController extends Controller
     {
         $rows = GoodsCategory::find()->where([ GoodsCategory::tableName().'.parent_id'=>0])->joinWith('subCategory')->all();// 这里的where条件需要加入主表表明来区别所属表
 //var_dump( $rows); exit;
-
         //保存到redis 中
         $redis = new \Redis();
         $redis->open('127.0.0.1');
         $html = $redis->get('category_view');
         if(!$html) {
-
             $html .= '<div class="cat_bd">';
             foreach ($rows as $k1 => $row) {
                 ;
@@ -326,6 +324,7 @@ class SiteController extends Controller
             }
         }
     }
+    //发送短信
     public function actionSms($tel){
 
         //正则判断电话号码
@@ -334,15 +333,15 @@ class SiteController extends Controller
         }
         $code = rand(1000,9999);
         $result = Yii::$app->sms->send($tel,['code'=>$code]);
-        var_dump($result->Code);
+        //var_dump($result->Code);
         if($result->Code=='OK'){
             //把短信验证码保存到redis 中
             $redis = new \Redis();
             $redis->open('127.0.0.1');
             $redis->set('code_'.$tel,$code,30*60); //保存30分钟
-            echo 'true';
+            return 'true';
         }else{
-            echo '短信发送失败';
+            return 'false';
         }
 
 /*        $params = array ();

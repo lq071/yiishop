@@ -24,7 +24,6 @@ class Brand extends \yii\db\ActiveRecord
     {
         return 'brand';
     }
-
     /**
      * @inheritdoc
      */
