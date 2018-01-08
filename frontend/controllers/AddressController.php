@@ -9,15 +9,19 @@ class AddressController extends Controller{
     public $enableCsrfValidation = false;
 
     public function actionIndex($id=''){
-        $member_id = \Yii::$app->user->id;
-        $rows = Address::find()->where(['member_id'=>$member_id])->all();
-        //$rows = Address::find()->all();
-        $model =Address::findOne(['id'=>$id]);
-        if(!$model){
-            $model = new Address();
-        }
+        if(\Yii::$app->user->isGuest){
+            return $this->redirect(['login/login']);
+        }else {
+            $member_id = \Yii::$app->user->id;
+            $rows = Address::find()->where(['member_id' => $member_id])->all();
+            //$rows = Address::find()->all();
+            $model = Address::findOne(['id' => $id]);
+            if (!$model) {
+                $model = new Address();
+            }
 
-        return $this->render('address',['rows'=>$rows,'model'=>$model]);
+            return $this->render('address', ['rows' => $rows, 'model' => $model]);
+        }
     }
 
     public function actionAdd(){
