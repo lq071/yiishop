@@ -18,23 +18,12 @@
 </head>
 <body>
 		<!-- 顶部导航 start -->
-	<div class="topnav">
-		<div class="topnav_bd w1210 bc">
-			<div class="topnav_left">
-				
-			</div>
-			<div class="topnav_right fr">
-				<ul>
-					<li>您好，欢迎来到京西！[<a href="login.html">登录</a>] [<a href="register.html">免费注册</a>] </li>
-					<li class="line">|</li>
-					<li>我的订单</li>
-					<li class="line">|</li>
-					<li>客户服务</li>
-
-				</ul>
-			</div>
-		</div>
-	</div>
+<?php
+/**
+ * @var $this \yii\web\View
+ */
+echo $this->render('@webroot/public/nav');
+?>
 	<!-- 顶部导航 end -->
 	
 	<div style="clear:both;"></div>
@@ -43,7 +32,7 @@
 	<div class="header w1210 bc mt15">
 		<!-- 头部上半部分 start 包括 logo、搜索、用户中心和购物车结算 -->
 		<div class="logo w1210">
-			<h1 class="fl"><a href="index.html"><img src="/images/logo.png" alt="京西商城"></a></h1>
+			<h1 class="fl"><a href="index.html"><img src="/images/logo.png" alt="京西商城" width="259" height="50"></a></h1>
 			<!-- 头部搜索 start -->
 			<div class="search fl">
 				<div class="search_form">
@@ -471,7 +460,7 @@
 					<dd>
 						<a href="<?=\yii\helpers\Url::to(['address/index','id'=>$row['id']])?>" id="edit"> 修改</a>
 						<a href="javascript:delAddress(<?=$row['id']?>)">删除</a>
-						<a href="<?=\yii\helpers\Url::to(['address/edit','id'=>$row['id']])?>">设为默认地址</a>
+						<a href="<?=\yii\helpers\Url::to(['address/edit','id'=>$row['id']])?>" id="edit"><?=$row['is_default'] == 0 ?'设为默认地址' :'默认地址' ?></a>
 					</dd>
 				</dl>
                 <?php endforeach;?>
@@ -621,8 +610,7 @@
 	<!-- 底部版权 end -->
 
         <script type="text/javascript">
-
-
+            //删除
             function delAddress(id) {
                 if (confirm('是否确定删除该记录？')) {
                     $.getJSON("<?=\yii\helpers\Url::to(['address/delete'])?>?id=" + id, function (data) {
@@ -634,6 +622,18 @@
                     });
                 }
             }
+
+/*            //修改
+            function editAddress(id) {
+                    $.getJSON("?id=" + id, function (data) {
+                       if (data == 1) {
+                           // $('#edit').text('默认地址')
+                        } else {
+
+                        }
+                    });
+
+            }*/
             //表单提交
             /*$("#submit").click(function(){
                 var html ='';

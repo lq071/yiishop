@@ -54,7 +54,7 @@ class GoodsController extends \yii\web\Controller
             ->andFilterWhere(['like','shop_price',$param['shop_price']])*/
             ->limit($pages->limit)->offset($pages->offset)
             ->all();
-        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON; //json 格式
         return [
             'details' => $rows
         ];
@@ -190,13 +190,13 @@ class GoodsController extends \yii\web\Controller
         return $this->render('gallery',['gallery'=>$gallery]);
     }
     //权限
- /*   public function behaviors()
+    public function behaviors()
     {
         return [
             'rbac'=>[
                 'class'=>RbacFilter::className()
             ],
         ];
-    }*/
+    }
 
 }

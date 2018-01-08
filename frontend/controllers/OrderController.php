@@ -26,20 +26,25 @@ class OrderController extends Controller{
             return $this->redirect(['login/login']);
         }else{
             $member_id = \Yii::$app->user->id;
-            //地址
-            $addresses = Address::find()->where(['member_id' => $member_id])->all();
-            //购物车商品数据
-            $carts = Cart::find()->where(['member_id'=>$member_id])->all();
-            $cart = ArrayHelper::map($carts,'goods_id','amount');
-            $ids = ArrayHelper::map($carts,'goods_id','goods_id');
-          /*  foreach ($carts as $c){
-                //var_dump($amount);exit;
-                $goods_id = $c['goods_id'];
-                $goods = Goods::find()->where(['id'=>$goods_id])->all();
-            }*/
-            $goods = Goods::find()->where(['in','id',$ids])->all();
-            //var_dump($goods);exit;
-            return $this->render('index',['addresses'=>$addresses,'goods'=>$goods,'cart'=>$cart]);
+            if(Cart::find()->where(['member_id' => $member_id])->all()){
+
+                //地址
+                $addresses = Address::find()->where(['member_id' => $member_id])->all();
+                //购物车商品数据
+                $carts = Cart::find()->where(['member_id'=>$member_id])->all();
+                $cart = ArrayHelper::map($carts,'goods_id','amount');
+                $ids = ArrayHelper::map($carts,'goods_id','goods_id');
+                /*  foreach ($carts as $c){
+                      //var_dump($amount);exit;
+                      $goods_id = $c['goods_id'];
+                      $goods = Goods::find()->where(['id'=>$goods_id])->all();
+                  }*/
+                $goods = Goods::find()->where(['in','id',$ids])->all();
+                //var_dump($goods);exit;
+                return $this->render('index',['addresses'=>$addresses,'goods'=>$goods,'cart'=>$cart]);
+            }else{
+                return $this->redirect(['site/cart']);
+            }
         }
     }
     //添加订单

@@ -36,6 +36,8 @@ class AddressController extends Controller{
            // var_dump($request->post());exit;
             if ($model->validate()) {
                 $model->member_id = \Yii::$app->user->id;
+                $model->create_time = time();
+                $model->is_default = 0;
                 $model->save(false);
                 return $this->redirect(['address/index']);
             } else {
@@ -43,6 +45,17 @@ class AddressController extends Controller{
             }
         }
     }
+    //修改为默认地址
+    public function actionEdit($id){
+        //把所有的默认地址改为 否
+        Address::updateAll(['is_default'=>0]);
+        $model =Address::findOne(['id'=>$id]);
+        //当前 默认地址 改为 是
+        $model->is_default = 1;
+        $model->save(false);
+        return $this->redirect(['address/index']);
+    }
+    //删除
     public function actionDelete($id){
         $model =Address::findOne(['id'=>$id]);
         $model->delete();

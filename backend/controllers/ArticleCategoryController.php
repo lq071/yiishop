@@ -53,13 +53,13 @@ class ArticleCategoryController extends \yii\web\Controller
         echo json_encode(1);
     }
     //权限
- /*   public function behaviors()
+   public function behaviors()
     {
         return [
             'rbac'=>[
                 'class'=>RbacFilter::className()
             ],
         ];
-    }*/
+    }
 
 }

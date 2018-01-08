@@ -94,14 +94,14 @@ class BrandController extends Controller{
         }
     }
     //权限
-/*    public function behaviors()
+    public function behaviors()
     {
         return [
             'rbac'=>[
                 'class'=>RbacFilter::className()
             ],
         ];
-    }*/
+    }
 
 
 

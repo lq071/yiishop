@@ -81,6 +81,7 @@ class SiteController extends Controller
      *
      * @return mixed
      */
+    //首页
     public function actionIndex()
     {
         $rows = GoodsCategory::find()->where([ GoodsCategory::tableName().'.parent_id'=>0])->joinWith('subCategory')->all();// 这里的where条件需要加入主表表明来区别所属表
@@ -121,7 +122,27 @@ class SiteController extends Controller
         return $this->render('index',['html'=>$html]);
        // return $this->render('index',['rows'=>$rows]);
     }
-
+    //搜索
+    public function actionSearch(){
+        $request = \Yii::$app->request;
+        $keywords = $request->get();
+        $query = Goods::find();
+        $pages = new Pagination([
+            'totalCount'=>$query->count(),
+            'defaultPageSize'=>2
+        ]);
+        //var_dump($keywords); exit;
+        $rows = $query
+        ->where(['status'=>1])
+            ->andwhere([
+                'and',
+                ['like','name',$keywords],
+            ])
+            ->limit($pages->limit)->offset($pages->offset)
+            ->all();
+        return $this->render('list',['rows'=>$rows,'pages'=>$pages,'html'=> $this-> getGoodsCategory()]);
+    }
+    //商品列表
     public function actionList($id)
     {
         $query = Goods::find();
@@ -145,14 +166,14 @@ class SiteController extends Controller
        // $rows = Goods::find()->where(['goods_category_id'=>$id])->all();
         return $this->render('list',['rows'=>$rows,'pages'=>$pages,'html'=> $this-> getGoodsCategory()]);
     }
-
+    //获取 redis 中的 商品分类
     public function getGoodsCategory(){
         $redis = new \Redis();
         $redis->open('127.0.0.1');
         $html = $redis->get('category_view');
         return $html;
     }
-
+    //商品详情
     public function actionGoods($id)
     {
         $rows = Goods::find()->where(['id'=>$id])->all();
@@ -380,13 +401,10 @@ class SiteController extends Controller
     {
         $this->enableCsrfValidation = false;
     }*/
-
     public function actionRegister()
     {
-
         $request = \Yii::$app->request;
         $model = new Member();
-
         if($request->isPost){
            // var_dump($model);exit;
             $model->load($request->post(),'');

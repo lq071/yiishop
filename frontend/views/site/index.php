@@ -61,14 +61,14 @@ echo $this->render('@webroot/public/nav');
 	<!-- 头部 start -->
 	<div class="header w1210 bc mt15">
 		<!-- 头部上半部分 start 包括 logo、搜索、用户中心和购物车结算 -->
-		<div class="logo w1210">
-			<h1 class="fl"><a href="index.html"><img src="/images/logo.png" alt="京西商城" width="259" height="50"></a></h1>
+<!--		<div class="logo w1210">
+			<h1 class="fl"><a href="index.html"><img src="/images/logo.png" alt="京西商城" width="259" height="50"></a></h1>-->
 			<!-- 头部搜索 start -->
-			<div class="search fl">
+<!--			<div class="search fl">
 				<div class="search_form">
 					<div class="form_left fl"></div>
-					<form action="" name="serarch" method="get" class="fl">
-						<input type="text" class="txt" value="请输入商品关键字" /><input type="submit" class="btn" value="搜索" />
+					<form action="<?/*=\yii\helpers\Url::to(['site/search'])*/?>" name="search" method="get" class="fl">
+						<input type="text" class="txt" name="keywords" value="请输入商品关键字" /><input type="submit" class="btn" value="搜索" />
 					</form>
 					<div class="form_right fl"></div>
 				</div>
@@ -82,7 +82,7 @@ echo $this->render('@webroot/public/nav');
 					<a href="">TCL空调</a>
 					<a href="">耐克篮球鞋</a>
 				</div>
-			</div>
+			</div>-->
 			<!-- 头部搜索 end -->
 
 			<!-- 用户中心 start-->

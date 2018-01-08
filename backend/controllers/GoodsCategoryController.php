@@ -85,12 +85,12 @@ class GoodsCategoryController extends \yii\web\Controller
         return $this->redirect(['goods-category/index']);
     }
     //权限
-/*    public function behaviors()
+    public function behaviors()
     {
         return [
             'rbac'=>[
                 'class'=>RbacFilter::className()
             ],
         ];
-    }*/
+    }
 }

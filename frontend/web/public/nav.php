@@ -16,6 +16,8 @@
                     </li>
                 <?php }?>
                 <li class="line">|</li>
+                <li><a href="<?=\yii\helpers\Url::to(['site/index'])?>">首页</a></li>
+                <li class="line">|</li>
                 <li><a href="<?=\yii\helpers\Url::to(['order/detail'])?>">我的订单</a></li>
                 <li class="line">|</li>
                 <li>客户服务</li>
