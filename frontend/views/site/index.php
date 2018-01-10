@@ -761,7 +761,7 @@ echo $this->render('@webroot/public/nav');
 //页面静态 用户状态
         $.getJSON('<?=\yii\helpers\Url::to(['site/user-status'])?>',function(data){
             if(data.isLogin){
-                $('#user-status').text(data.username+ '<a href ="' + <?=\yii\helpers\Url::to(['login/logout'])?> +'">注销</a>')
+                $('#user-status').html('<b>'+data.username+ '<b> [<a href="<?=\yii\helpers\Url::to(['login/logout'])?>">注销</a>]')
             }
         })
     </script>
