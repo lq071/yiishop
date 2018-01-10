@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-	<title>京西商城</title>
+	<title>一木一草</title>
 	<link rel="stylesheet" href="/style/base.css" type="text/css">
 	<link rel="stylesheet" href="/style/global.css" type="text/css">
 	<link rel="stylesheet" href="/style/header.css" type="text/css">
@@ -757,5 +757,13 @@ echo $this->render('@webroot/public/nav');
 	</div>
 	<!-- 底部版权 end -->
 
+    <script type="text/javascript" >
+//页面静态 用户状态
+        $.getJSON('<?=\yii\helpers\Url::to(['site/user-status'])?>',function(data){
+            if(data.isLogin){
+                $('#user-status').text(data.username+ '<a href ="' + <?=\yii\helpers\Url::to(['login/logout'])?> +'">注销</a>')
+            }
+        })
+    </script>
 </body>
 </html>

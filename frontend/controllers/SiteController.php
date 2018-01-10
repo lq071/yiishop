@@ -57,7 +57,6 @@ class SiteController extends Controller
             ],
         ];
     }
-
     /**
      * @inheritdoc
      */
@@ -75,7 +74,6 @@ class SiteController extends Controller
             ],
         ];
     }
-
     /**
      * Displays homepage.
      *
@@ -117,8 +115,24 @@ class SiteController extends Controller
             $html .= '</div>';
             $redis->set('category_view',$html,24*3600);
         }
-        return $this->render('index',['html'=>$html]);
+        $contents = $this->render('index',['html'=>$html]);
+        file_put_contents('index.html',$contents);
+
        // return $this->render('index',['rows'=>$rows]);
+    }
+    //首页 页面静态化 获取 登录和未登录 状态
+    public function actionUserStatus(){
+        if(Yii::$app->user->isGuest){
+            echo json_encode( [
+                'isLogin' => false,
+                'username'=>''
+            ]);
+        }else{
+            echo json_encode( [
+                'isLogin' => true,
+                'username'=>Yii::$app->user->identity->username
+            ]);
+        }
     }
     //搜索
     public function actionSearch(){
@@ -178,8 +192,15 @@ class SiteController extends Controller
             //var_dump($rows);exit;
         $rows[0]->view_times ++;
         $rows[0]->save();
+      /*  $redis = new \Redis();
+        $redis->open('127.0.0.1');
+        $redis->incr('view_times'.$rows[0]->id);*/
+       // $contents = $this->render('goods',['rows'=>$rows,'html'=> $this-> getGoodsCategory()]);
+       // file_put_contents('goods.html',$contents);
         return $this->render('goods',['rows'=>$rows,'html'=> $this-> getGoodsCategory()]);
     }
+    //商品详情 页面静态化时 动态获取
+
     //添加商品到购物车
     public function actionAddCart($goods_id,$amount){
         //未登录 购物车数据 保存到 cookie 中
@@ -326,18 +347,22 @@ class SiteController extends Controller
     }
     //发送短信
     public function actionSms($tel){
-
+        $redis = new \Redis();
+        $redis->open('127.0.0.1');
         //正则判断电话号码
         if(!preg_match("/^1[34578]{1}\d{9}$/",$tel)){
             echo "手机号码不正确";
+        }
+        $ttl = $redis->ttl('code_'.$tel);
+        if($ttl && $ttl>30*60-60){
+            echo '请'.($ttl+60-1800)  .'秒再试';
         }
         $code = rand(1000,9999);
         $result = Yii::$app->sms->send($tel,['code'=>$code]);
         //var_dump($result->Code);
         if($result->Code=='OK'){
             //把短信验证码保存到redis 中
-            $redis = new \Redis();
-            $redis->open('127.0.0.1');
+
             $redis->set('code_'.$tel,$code,30*60); //保存30分钟
             return 'true';
         }else{
@@ -423,7 +448,7 @@ class SiteController extends Controller
         }
         return $this->render('register');
     }
-
+    //验证用户名是否唯一
     public function actionCheckUser($username){
          $username = Member::findOne(['username'=>$username]);
          if($username){
@@ -431,7 +456,6 @@ class SiteController extends Controller
          }else{
              echo 'true';
          }
-
     }
     /**
      * Logs in a user.

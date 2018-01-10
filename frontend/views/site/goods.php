@@ -655,6 +655,14 @@ echo $this->render('@webroot/public/nav');
 
 	<script type="text/javascript">
 		document.execCommand("BackgroundImageCache", false, true);
+
+            //页面静态 浏览次数
+            $.getJSON('<?=\yii\helpers\Url::to(['site/goods-static'])?>',function(data){
+
+                    $('#user-status').text(data.username+ '<a href ="' + <?=\yii\helpers\Url::to(['login/logout'])?> +'">注销</a>')
+
+            })
+
 	</script>
 </body>
 </html>

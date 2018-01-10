@@ -6,7 +6,7 @@
         <div class="topnav_right fr">
             <ul>
                 <?php if(Yii::$app->user->isGuest){?>
-                    <li>您好，欢迎来到京西！
+                    <li id="user-status">您好，欢迎来到京西！
                         [<a href="<?=\yii\helpers\Url::to(['login/login'])?>">登录</a>] [<a href="<?=\yii\helpers\Url::to(['site/register'])?>">免费注册</a>]
                     </li>
                 <?php }else{?>

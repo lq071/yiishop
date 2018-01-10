@@ -49,7 +49,7 @@ class LoginController extends Controller {
                     //同步cookie 购物车
                     $this->syncBuyCar();
                     \Yii::$app->session->setFlash('success','登录成功');
-                    return $this->redirect(['site/index']);
+                    return $this->redirect(['@web/index']);
                 }else{
                     var_dump($model->getErrors());
                 }
